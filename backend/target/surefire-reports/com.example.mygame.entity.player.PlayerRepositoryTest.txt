@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.example.mygame.entity.player.PlayerRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.645 s - in com.example.mygame.entity.player.PlayerRepositoryTest
