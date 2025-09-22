@@ -5,7 +5,7 @@ import com.example.mygame.entity.Entity;
 public class RustySword extends Weapon{
 
     public RustySword(){
-        super("RustySword", "Hope you got your Tetanus shot", 10.0, .01, 2, false);
+        super("Rusty Sword", "Hope you got your Tetanus shot", 10.0, .01, 2 , "rusty_sword");
     }
 
     @Override
@@ -57,6 +57,11 @@ public class RustySword extends Weapon{
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    @Override
+    public String getId() {
+        return super.getId();
     }
 
 }

@@ -4,8 +4,8 @@ import com.example.mygame.entity.Entity;
 
 public class HealthPotion extends Potion {
 
-    public HealthPotion(String name, String description, double number) {
-        super("Health Potion", "Heals you for 25 health", 25.0);
+    public HealthPotion() {
+        super("Health Potion", "Heals you for 25 health", 25.0, "health_potion");
     }
 
     @Override
@@ -29,6 +29,11 @@ public class HealthPotion extends Potion {
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    @Override
+    public String getId() {
+        return super.getId();
     }
 
 }

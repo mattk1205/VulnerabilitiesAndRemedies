@@ -1,11 +1,14 @@
 package com.example.mygame.entity;
 
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
 import com.example.mygame.inventory.Inventory;
 import com.example.mygame.item.GameItems;
+import com.example.mygame.item.ItemRegistry;
 import com.example.mygame.item.Weapon;
 
 @Document(collection = "player")
@@ -13,56 +16,59 @@ public class Player implements Entity{
 
     @Id
     private String id;
-    private String name;    
+    private String name;
     private final Inventory inventory;  
     private double health;
     private double baseDamage;
     private double maxHealth;
-    private Weapon equippedWeapon;
+    private String equippedWeaponId;
     private boolean isAlive;
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Weapon getEquippedWeapon() {
-        return equippedWeapon;
-    }
-
-    public void setEquippedWeapon(Weapon equippedWeapon) {
-        this.equippedWeapon = equippedWeapon;
-    }
-
-    public boolean isAlive() {
-        return isAlive;
-    }
-
     // Initial constructor call one at beginning of game
-    public Player() {
+    public Player(String name) {
         this.id = null;
+        this.name = name;
         this.inventory = new Inventory();
-        this.health = 100.0;
+        this.health = 75.0;
         this.baseDamage = 25.0;
         this.maxHealth = 100.0;
-        this.equippedWeapon = ((Weapon) GameItems.RUSTY_SWORD);
+        this.equippedWeaponId = "wp_bare_hands";
         this.isAlive = true;
+        System.out.println("Creating new player with ID: " + id + " and name: " + name);
     }
 
     // Mongo DB needs to know how to construct the Player from saved data
     // Called whenever reloading game state
     @PersistenceCreator
-    public Player(String id, String name, Inventory inventory, double health, double baseDamage, double maxHealth, Weapon equippedWeapon, boolean isAlive) {
+    public Player(String id, String name, Inventory inventory, double health, double baseDamage, double maxHealth, String equippedWeaponId, boolean isAlive) {
         this.id = id;
         this.name = name;
-        this.inventory = inventory;
+        this.inventory = inventory != null ? inventory : new Inventory();
         this.health = health;
         this.baseDamage = baseDamage;
         this.maxHealth = maxHealth;
-        this.equippedWeapon = equippedWeapon;
+        this.equippedWeaponId = equippedWeaponId;
         this.isAlive = isAlive;
+        System.out.println("Persistence Creating player with ID: " + id + " and name: " + name);
+
+    } 
+
+    public void setId(String id) {
+        this.id = id;
     }
 
-     
+    public String getEquippedWeaponId() {
+        return equippedWeaponId;
+    }
+
+    public void setEquippedWeapon(String weaponId) {
+        this.equippedWeaponId = weaponId;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+    
     public String getName() {
         return this.name;
     }
@@ -72,36 +78,52 @@ public class Player implements Entity{
         return this.id;
     }
 
-    public void equipWeapon(Weapon weapon) {
-        if (!inventory.getItems().containsKey(weapon.getName())) {
+    public void equipWeapon(String weaponId) {
+        if (weaponId != null && weaponId.equals(GameItems.BARE_HANDS.getId())) {
+            this.equippedWeaponId = weaponId;
+            return;
+        }
+        if (ItemRegistry.get(weaponId) instanceof Weapon == false) {
+            System.out.println(weaponId + "is not a weapon");
+            return;
+        }
+        if (!inventory.getItems().containsKey(weaponId)) {
             System.out.println("Weapon not in inventory");
             return;
         }
-        this.equippedWeapon = weapon;
-        System.out.println(this.name + " equipped " + weapon.getName());
+        this.equippedWeaponId = weaponId;
+        System.out.println(this.name + " equipped " + weaponId);
+    }
+
+    public void unequipWeapon() {
+        if (!inventory.getItems().containsKey(equippedWeaponId)) {
+            System.out.println("Weapon not in inventory");
+            return;
+        }
+        System.out.println(this.name + " unequipped " + equippedWeaponId);
+        equipWeapon(GameItems.BARE_HANDS.getId());
     }
 
      
     public void attack(Entity target) {
-        equippedWeapon.use(target);
-        if (Math.random() > equippedWeapon.getCritChance())
-            target.takeDamage((equippedWeapon.getDamage() + baseDamage) * 2);
-        target.takeDamage(equippedWeapon.getDamage() + baseDamage);
+        return;
     }
 
      
     @Override
     public String toString() {
         return name  +  "\n Inventory=" + inventory + ", Health="
-                + health + ", Base Damage=" + baseDamage + ", Equipped Weapon:" + equippedWeapon;
+                + health + ", Base Damage=" + baseDamage + "id: " + id;
     }
 
      
     public void heal(double amount) {
+        System.out.println("Healing self: " + this.health + " + " + amount);
         if (health + amount <= maxHealth)
             health += amount;
         else
             health = maxHealth;
+        System.out.println("Result: " + this.health);
     }
 
      
@@ -161,6 +183,10 @@ public class Player implements Entity{
      
     public void setAlive(boolean isAlive) {
         this.isAlive = isAlive;
+    }
+
+    public void setEquippedWeaponId(String equippedWeaponId) {
+        this.equippedWeaponId = equippedWeaponId;
     }
 
 }

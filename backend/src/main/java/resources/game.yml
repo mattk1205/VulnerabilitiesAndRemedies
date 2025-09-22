@@ -1,0 +1,198 @@
+game:
+    cards:
+        # Hack Cards
+        - id: hk_phishing
+          name: "Phishing Campaign"
+          description: "Sophisticated email campaign targeting employee credentials with fake login pages."
+          complexity: 2
+          effect: "combo"
+          responses:
+              - rm_security_training # Direct counter
+              - rm_user_lockdown # Broad defense
+              - rm_threat_intelligence # Prevention
+              - rm_incident_response_team # Overkill but effective
+
+        - id: hk_ransomware
+          name: "Ransomware"
+          description: "Malicious encryption of critical business data demanding payment for decryption keys."
+          complexity: 5
+          effect: "double"
+          responses:
+              - rm_backup_restore # Best counter
+              - rm_network_segmentation # Limit spread
+              - rm_kill_switch # Emergency stop
+              - rm_incident_response_team # Full response
+
+        - id: hk_ddos
+          name: "DDoS Attack"
+          description: "Massive coordinated traffic flood overwhelming critical services and infrastructure."
+          complexity: 3
+          responses:
+              - rm_traffic_analysis # Identify patterns
+              - rm_threat_intelligence # Block known sources
+              - rm_kill_switch # Emergency measure
+              - rm_zero_trust_mode # Overkill defense
+
+        - id: hk_sql_injection
+          name: "SQL Injection"
+          description: "Database manipulation through vulnerable web forms exposing sensitive customer data."
+          complexity: 4
+          effect: "pierce"
+          responses:
+              - rm_patch_blitz # Fix vulnerability
+              - rm_kill_switch # Stop the bleeding
+              - rm_forensic_analysis # Assess damage
+              - rm_zero_trust_mode # Prevent future attacks
+
+        - id: hk_insider_threat
+          name: "Insider Threat"
+          description: "Malicious employee or contractor with legitimate access stealing confidential data."
+          complexity: 4
+          effect: "stun"
+          responses:
+              - rm_user_lockdown # Stop access
+              - rm_network_segmentation # Limit access
+              - rm_forensic_analysis # Investigate
+              - rm_zero_trust_mode # Trust no one
+
+        - id: hk_supply_chain
+          name: "Supply Chain Compromise"
+          description: "Trusted software vendor has been compromised, pushing malicious updates to your systems."
+          complexity: 5
+          effect: "pierce"
+          responses:
+              - rm_network_segmentation # Isolate systems
+              - rm_patch_blitz # Emergency rollback
+              - rm_incident_response_team # Coordinated response
+              - rm_zero_trust_mode # Maximum security
+
+        - id: hk_social_engineering
+          name: "Social Engineering"
+          description: "Attackers manipulating employees over phone to gain system access and sensitive information."
+          complexity: 3
+          effect: "combo"
+          responses:
+              - rm_security_training # Direct counter
+              - rm_user_lockdown # Prevent access
+              - rm_deception_tech # Trap attackers
+              - rm_incident_response_team # Professional response
+
+        - id: hk_zero_day
+          name: "Zero-Day Exploit"
+          description: "Unknown vulnerability in critical software being actively exploited in the wild."
+          complexity: 6
+          effect: "double"
+          responses:
+              - rm_network_segmentation # Limit exposure
+              - rm_threat_hunting # Find other instances
+              - rm_kill_switch # Emergency shutdown
+              - rm_incident_response_team # Expert handling
+
+        # Remediation Cards - Rebalanced for strategic gameplay
+
+        # Tier 1: Quick Response (Complexity 1-2)
+        - id: rm_incident_alert
+          name: "Sound Alarm"
+          description: "Immediately alert security team and stakeholders"
+          complexity: 1
+          effect: "stun"
+          responses: []
+
+        - id: rm_kill_switch
+          name: "Emergency Shutdown"
+          description: "Take affected systems offline immediately"
+          complexity: 2
+          effect: "stun"
+          responses: []
+
+        - id: rm_traffic_analysis
+          name: "Deep Packet Inspection"
+          description: "Analyze network traffic for malicious patterns"
+          complexity: 2
+          effect: "combo"
+          responses: []
+
+        - id: rm_user_lockdown
+          name: "Account Lockdown"
+          description: "Freeze all user accounts and force re-authentication"
+          complexity: 2
+          effect: "block"
+          responses: []
+
+        # Tier 2: Standard Defense (Complexity 2-3)
+        - id: rm_network_segmentation
+          name: "Network Segmentation"
+          description: "Isolate critical systems and limit lateral movement"
+          complexity: 3
+          effect: "block"
+          responses: []
+
+        - id: rm_threat_intelligence
+          name: "Threat Intel Feed"
+          description: "Deploy real-time threat intelligence to block known attackers"
+          complexity: 2
+          responses: []
+
+        - id: rm_honeypot
+          name: "Deploy Honeypot"
+          description: "Set decoy systems to trap and study attackers"
+          complexity: 2
+          effect: "stun"
+          responses: []
+
+        - id: rm_backup_restore
+          name: "Emergency Restore"
+          description: "Roll back to last known good state from clean backups"
+          complexity: 3
+          effect: "combo"
+          responses: []
+
+        - id: rm_patch_blitz
+          name: "Emergency Patching"
+          description: "Deploy critical security patches across all systems"
+          complexity: 3
+          responses: []
+
+        # Tier 3: Advanced Response (Complexity 3-4)
+        - id: rm_incident_response_team
+          name: "Deploy IR Team"
+          description: "Activate specialized incident response team for coordinated defense"
+          complexity: 4
+          effect: "double"
+          responses: []
+
+        - id: rm_zero_trust_mode
+          name: "Zero Trust Protocol"
+          description: "Verify everything, trust nothing - maximum security posture"
+          complexity: 4
+          effect: "pierce"
+          responses: []
+
+        - id: rm_forensic_analysis
+          name: "Digital Forensics"
+          description: "Conduct deep investigation to understand attack methods"
+          complexity: 3x
+          effect: "double"
+          responses: []
+
+        # Specialty Cards
+        - id: rm_security_training
+          name: "Emergency Awareness Training"
+          description: "Rapid user education to prevent further social engineering"
+          complexity: 2
+          effect: "combo"
+          responses: []
+
+        - id: rm_deception_tech
+          name: "Deception Technology"
+          description: "Deploy fake assets to confuse and misdirect attackers"
+          complexity: 3
+          effect: "stun"
+          responses: []
+
+        - id: rm_threat_hunting
+          name: "Active Threat Hunting"
+          description: "Proactively search for hidden threats in the environment"
+          complexity: 3
+          effect: "pierce"
+          responses: []

@@ -2,17 +2,17 @@ FROM node:22.17-alpine
 
 WORKDIR /app
 
-COPY package.json .
+COPY package*.json ./
 
 RUN npm install
 
 COPY . .
 
+ENV CHOKIDAR_USEPOLLING=true
+
 EXPOSE 3000
 
 CMD ["npm", "run", "dev"]
-
-
 
 # For PROD
 # FROM _______

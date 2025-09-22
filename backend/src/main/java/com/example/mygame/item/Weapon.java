@@ -8,24 +8,22 @@ public abstract class Weapon implements Item {
     private double critChance;
     private int durability;
     private String name;
-    private boolean isEquipped;
+    private String id;
     
-    public Weapon(String name, String description, double damage, double critChange, int durability, boolean isEquipped) {
+    public Weapon(String name, String description, double damage, double critChange, int durability, String id) {
         this.name = name;
-        this.description = description + ":\n [damage=" + damage + ", critChange=" + critChance + ", durability=" + durability + "]";
+        this.description = description;
         this.damage = damage;
         this.critChance = critChange;
         this.durability = durability;
-        this.isEquipped = false;
+        this.id = "wp_" + id;
     }
 
-    public void equip() {
-        isEquipped = true;
-    }
 
     @Override
     public String toString() {
-        return getName();
+        return "Weapon [damage=" + damage + ", description=" + description + ", critChance=" + critChance
+                + ", durability=" + durability + ", name=" + name + ", id=" + id + "]";
     }
     public double getDamage() {
         return damage;
@@ -47,7 +45,7 @@ public abstract class Weapon implements Item {
     }
     @Override
     public String getDescription() {
-        return name + " " + description;
+        return this.description;
     }
     @Override
     public String getName() {
@@ -55,10 +53,6 @@ public abstract class Weapon implements Item {
     }
     @Override
     public int use(Entity target) {
-        if(!isEquipped) {
-            System.out.println("Weapon not equipped. Cannot Use");
-            return 1;
-        }
         System.out.println("You used the " + name);
         durability--;
         if (durability <= 0){
@@ -66,5 +60,21 @@ public abstract class Weapon implements Item {
             target.getInventory().removeItem(this.name, 1);
         }
         return 0;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

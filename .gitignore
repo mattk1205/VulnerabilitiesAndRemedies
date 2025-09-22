@@ -22,3 +22,23 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+node_modules
+.dockerignore
+Dockerfile
+build
+Dockerfile.prod
+node_modules/*
+.*md
+.cache
+.vscode
+.gitignore
+logs/
+npm-debug.log
+README.md%  
+.idea/
+old/*
+target/*
+.backend/*
+.prettierrc
+backend/target/*
