@@ -15,6 +15,7 @@ import Combat from "./pages/Combat.tsx";
 import Profile from "./pages/Profile.tsx";
 import Quarantine from "./pages/Quarantine.tsx";
 import InventoryPage from "./pages/InventoryPage.tsx";
+import SpriteSheetDemo from "./pages/SpriteSheetDemo.tsx";
 
 const Content = () => {
   const location = useLocation();
@@ -27,11 +28,11 @@ const Content = () => {
     if (isAnimatedPage) {
       document.body.classList.add("animated-background");
     } else {
-      document.body.classList.remove("animated-background");
+      return () => {
+        document.body.classList.remove("animated-background");
+      };
     }
-    return () => {
-      document.body.classList.remove("animated-background");
-    };
+
   }, [isAnimatedPage]);
 
   return (
@@ -45,6 +46,7 @@ const Content = () => {
         <Route path={"/game/quarantine"} element={<Quarantine />} />
         <Route path={"/profile"} element={<Profile />} />
         <Route path={"/inventory"} element={<InventoryPage />} />
+        <Route path={"/demo"} element={<SpriteSheetDemo />} />
       </Routes>
   );
 };

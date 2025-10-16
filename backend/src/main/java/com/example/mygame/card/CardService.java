@@ -11,7 +11,7 @@ import com.example.mygame.game.GameConfig;
 
 @Service
 public class CardService {
-    
+
     private final CardRepository cardRepository;
 
     public CardService(CardRepository cardRepository) {
@@ -58,27 +58,33 @@ public class CardService {
         return cardRepository.findByNameContainingIgnoreCase(name);
     }
 
-     public List<Card> getCardsWithoutEffect() {
+    public List<Card> getCardsWithoutEffect() {
         return cardRepository.findByEffectIsNull();
     }
 
     // Random card selection for gameplay
-    public Card getRandomHack() {
+    public List<Card> getRandomHack() {
         List<Card> hacks = getAllHacks();
         if (hacks.isEmpty()) {
             return null;
         }
         Random random = new Random();
-        return hacks.get(random.nextInt(hacks.size()));
+        Card choice = hacks.get(random.nextInt(hacks.size()));
+        hacks.clear();
+        hacks.add(choice);
+        return hacks;
     }
 
-    public Card getRandomRemediation() {
+    public List<Card> getRandomRemediation() {
         List<Card> remediations = getAllRemediations();
         if (remediations.isEmpty()) {
             return null;
         }
         Random random = new Random();
-        return remediations.get(random.nextInt(remediations.size()));
+        Card choice = remediations.get(random.nextInt(remediations.size()));
+        remediations.clear();
+        remediations.add(choice);
+        return remediations;
     }
 
     // Data initialization
@@ -86,26 +92,28 @@ public class CardService {
         try {
             // Clear existing cards
             cardRepository.deleteAll();
-            
+            System.out.println("1");
             // Load from YAML
             Yaml yaml = new Yaml();
+
             InputStream inputStream = this.getClass()
                     .getClassLoader()
                     .getResourceAsStream("game.yml");
-            
+
             if (inputStream == null) {
-                throw new RuntimeException("game.yml not found in resources");
+                System.out.println("ame.yml NOT FOUND");
+                return -1;
             }
-            
+
             GameConfig config = yaml.loadAs(inputStream, GameConfig.class);
             List<Card> cards = config.getGame().getCards();
-            
-            // Save to database
             cardRepository.saveAll(cards);
-            
+
             return cards.size();
-            
+
         } catch (Exception e) {
+            // e.printStackTrace();
+            System.err.println("YAML parsing failed: " + e.getMessage());
             throw new RuntimeException("Failed to load cards from YAML", e);
         }
     }

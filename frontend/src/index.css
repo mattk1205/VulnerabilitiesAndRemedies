@@ -126,6 +126,20 @@ body.animated-background {
   animation: none;
 }
 
+body.combat-bg-page::before,
+body.combat-bg-page::after {
+  display: none;
+}
+body.combat-bg-page {
+  background: linear-gradient(to bottom,
+  #1e90ff 0%,        /* Deep sky blue */
+  #87ceeb 35%,       /* Light sky blue */
+  #a8d8a0 25%,       /* Horizon blend */
+  #7cb342 55%,       /* Light grass */
+  #558b2f 100%       /* Dark grass */
+  );
+}
+
 a {
   font-weight: 500;
   color: #00ff9d;

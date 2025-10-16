@@ -59,4 +59,34 @@ export interface Player {
   maxHealth: number;
   baseDamage: number;
   equippedWeaponId?: string;
+  statusEffects?: StatusEffect[];
+
+}
+export interface Card {
+  id: string;
+  name: string;
+  description: string;
+  complexity: number;
+  associations: string[];
+  effect?: string;
+}
+
+export interface Enemy {
+  id: number;
+  name: string;
+  inventory: Inventory;
+  health: number;
+  maxHealth: number;
+  baseDamage: number;
+  equippedWeaponId?: string;
+  statusEffects?: StatusEffect[];
+  imageUrl?: string;
+  intent?: string; // what they're planning to do next
+}
+
+export interface StatusEffect {
+  id: string;
+  name: string;
+  duration: number;
+  type: 'buff' | 'debuff';
 }

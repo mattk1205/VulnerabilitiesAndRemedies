@@ -4,6 +4,7 @@ import type {
   Player,
   PlayerProfile,
   Weapon,
+  Card,
 } from "./types.ts";
 
 export function returnItemType(itemId: string): string {
@@ -186,4 +187,53 @@ export function clearCaches() {
   equippedWeaponCache = null;
   inventoryCache = null;
   profileCache = null;
+}
+
+export async function initializeCards() {
+  const response = await fetch(
+    `http://localhost:8080/api/cards/initialize`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+  );
+  if (!response.ok) {
+    throw new Error(`Failed to use item: ${response.status}`);
+  }
+  return await response.json();
+}
+
+export async function fetchRandomRemedy() : Promise<Card[]> {
+  const response = await fetch(
+    `http://localhost:8080/api/cards/random/remediation`);
+  if (!response.ok) {
+    throw new Error(`Failed to use item: ${response.status}`);
+  }
+  const res = await response.json();
+  //console.log(JSON.stringify(res, null, 2));
+  return res;
+}
+
+export async function fetchRandomHack() : Promise<Card[]> {
+  const response = await fetch(
+    `http://localhost:8080/api/cards/random/hack`);
+  if (!response.ok) {
+    throw new Error(`Failed to use item: ${response.status}`);
+  }
+  const res = await response.json();
+  //console.log(JSON.stringify(res, null, 2));
+  return res;
+}
+
+export async function isCounter(hackId: string, remedyId: string) : Promise<boolean> {
+  const response = await fetch(
+      `http://localhost:8080/api/cards//can-counter/${hackId}/${remedyId}`,
+  )
+  if (!response.ok) {
+    throw new Error(`Failed get response on can-counter: ${response.status}`);
+  }
+  const res = await response.json();
+  return res;
 }

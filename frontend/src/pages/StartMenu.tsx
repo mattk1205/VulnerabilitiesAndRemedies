@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import "../index.css";
 import Layout from "../layouts/Layout.tsx";
-import { getErrorMessage, getProfile } from "../services/helperFunctions.ts";
+import { getErrorMessage, getProfile, initializeCards } from "../services/helperFunctions.ts";
 import React, { useEffect } from "react";
 
 
@@ -11,6 +11,7 @@ export default function StartMenu() {
   useEffect(() => {
     (async () => {
       try {
+        await initializeCards();
         const prof = await getProfile({ startMenu : true });
         if (prof && prof.player?.id) {
           setLoaded(true);
@@ -21,7 +22,6 @@ export default function StartMenu() {
       }
     })();
   }, []);
-
   return (
     <Layout showNav={false}>
       <div className="menu-container">

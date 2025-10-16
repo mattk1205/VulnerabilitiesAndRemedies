@@ -105,8 +105,8 @@ public class CardController {
     }
 
     @GetMapping("/random/hack")
-    public ResponseEntity<Card> getRandomHack() {
-        Card randomHack = cardService.getRandomHack();
+    public ResponseEntity<List<Card>> getRandomHack() {
+        List<Card> randomHack = cardService.getRandomHack();
         
         if (randomHack != null) {
             return ResponseEntity.ok(randomHack);
@@ -114,9 +114,10 @@ public class CardController {
         return ResponseEntity.noContent().build();
     }
 
+
     @GetMapping("/random/remediation")
-    public ResponseEntity<Card> getRandomRemediation() {
-        Card randomRemediation = cardService.getRandomRemediation();
+    public ResponseEntity<List<Card>> getRandomRemediation() {
+        List<Card> randomRemediation = cardService.getRandomRemediation();
         
         if (randomRemediation != null) {
             return ResponseEntity.ok(randomRemediation);
@@ -126,8 +127,10 @@ public class CardController {
 
     @PostMapping("/initialize")
     public ResponseEntity<String> initializeCards() {
+        System.out.println("initialzing cards");
         try {
             int count = cardService.initializeCardsFromYaml();
+            System.out.println("Countr:"+ count );
             return ResponseEntity.ok("Initialized " + count + " cards from YAML");
         } catch (Exception e) {
             return ResponseEntity.internalServerError()

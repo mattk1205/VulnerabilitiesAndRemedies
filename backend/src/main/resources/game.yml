@@ -171,7 +171,7 @@ game:
         - id: rm_forensic_analysis
           name: "Digital Forensics"
           description: "Conduct deep investigation to understand attack methods"
-          complexity: 3x
+          complexity: 3
           effect: "double"
           responses: []
 
