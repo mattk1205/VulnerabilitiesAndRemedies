@@ -1,9 +1,5 @@
 package com.example.mygame.dto;
 
-import com.example.mygame.inventory.Inventory;
-import com.example.mygame.item.Item;
-import com.example.mygame.item.ItemRegistry;
-
 public class ItemView {
     private final String id;
     private final String name;
@@ -19,17 +15,17 @@ public class ItemView {
         this.known = known;
     }
 
-    public ItemView(String itemId, Inventory inv) {
-        Item item = ItemRegistry.get(itemId);
-        if (item == null) {
-            throw new IllegalArgumentException("Item not found in registry");
-        }
-        this.id = itemId;
-        this.name = item.getName();
-        this.description = item.getDescription();
-        this.quantity = inv.getQuantity(item);
-        this.known = (item != null);
-}
+//     public ItemView(String itemId, Inventory inv) {
+//         Item item = ItemRegistry.get(itemId);
+//         if (item == null) {
+//             throw new IllegalArgumentException("Item not found in registry");
+//         }
+//         this.id = itemId;
+//         this.name = item.getName();
+//         this.description = item.getDescription();
+//         this.quantity = inv.getQuantity(item);
+//         this.known = (item != null);
+// }
 
     public String getId() {
         return id;

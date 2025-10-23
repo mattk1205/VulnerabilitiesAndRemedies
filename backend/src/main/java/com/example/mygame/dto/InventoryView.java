@@ -1,7 +1,6 @@
 package com.example.mygame.dto;
 
 import java.util.List;
-import com.example.mygame.inventory.Inventory;
 
 public class InventoryView {
     private final int capacity;
@@ -16,12 +15,6 @@ public class InventoryView {
         this.items = items;
     }
 
-    public InventoryView(Inventory inv) {
-        this.capacity = inv.getCapacity();
-        this.totalUnits = inv.total();
-        this.spaceLeft = inv.spaceLeft();
-        this.items = inv.getListView();
-        }
     
     public int getCapacity() {
         return capacity;
